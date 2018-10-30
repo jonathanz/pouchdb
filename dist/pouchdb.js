@@ -8630,7 +8630,16 @@ function init(api, opts, callback) {
           return finish();
         }
       } else {
-        rev$$1 = opts.latest ? latest(opts.rev, metadata) : opts.rev;
+        if(opts.latest) {
+          try{
+            rev$$1 = latest(opts.rev, metadata);
+          }catch(err){
+            rev$$1 = opts.rev;
+          }
+        }else{
+          rev$$1 = opts.rev;
+        }        
+        //rev$$1 = opts.latest ? latest(opts.rev, metadata) : opts.rev;
       }
 
       var objectStore = txn.objectStore(BY_SEQ_STORE);
